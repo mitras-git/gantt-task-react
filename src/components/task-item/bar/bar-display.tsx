@@ -41,6 +41,7 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
 
   return (
     <g onMouseDown={onMouseDown}>
+
       <rect
         x={x}
         width={width}
@@ -51,15 +52,23 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
         fill={getBarColor()}
         className={style.barBackground}
       />
+
+      <defs>
+        <clipPath id="barClipLeft">
+          <rect x={progressX} y={y} width={progressWidth} height={height} rx={barCornerRadius} ry={barCornerRadius} />
+          <rect x={progressX + barCornerRadius} y={y} width={progressWidth - barCornerRadius} height={height} />
+        </clipPath>
+      </defs>
+
       <rect
         x={progressX}
         width={progressWidth}
         y={y}
         height={height}
-        ry={barCornerRadius}
-        rx={barCornerRadius}
         fill={getProcessColor()}
+        clipPath="url(#barClipLeft)"
       />
+
     </g>
   );
 };
