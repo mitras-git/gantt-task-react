@@ -41,7 +41,6 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
 
   return (
     <g onMouseDown={onMouseDown}>
-
       <rect
         x={x}
         width={width}
@@ -53,22 +52,46 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
         className={style.barBackground}
       />
 
-      <defs>
-        <clipPath id="barClipLeft">
-          <rect x={progressX} y={y} width={progressWidth} height={height} rx={barCornerRadius} ry={barCornerRadius} />
-          <rect x={progressX + barCornerRadius} y={y} width={progressWidth - barCornerRadius} height={height} />
-        </clipPath>
-      </defs>
-
-      <rect
-        x={progressX}
-        width={progressWidth}
-        y={y}
-        height={height}
-        fill={getProcessColor()}
-        clipPath="url(#barClipLeft)"
-      />
-
+      {progressWidth > barCornerRadius ? (
+        <React.Fragment>
+          <defs>
+            <clipPath id={`barClipLeft-${x}`}>
+              <rect
+                x={progressX}
+                y={y}
+                width={progressWidth}
+                height={height}
+                rx={barCornerRadius}
+                ry={barCornerRadius}
+              />
+              <rect
+                x={progressX + barCornerRadius}
+                y={y}
+                width={progressWidth - barCornerRadius}
+                height={height}
+              />
+            </clipPath>
+          </defs>
+          <rect
+            x={progressX}
+            width={progressWidth}
+            y={y}
+            height={height}
+            fill={getProcessColor()}
+            clipPath={`url(#barClipLeft-${x})`}
+          />
+        </React.Fragment>
+      ) : (
+        <rect
+          x={progressX}
+          width={progressWidth}
+          y={y}
+          height={height}
+          rx={barCornerRadius}
+          ry={barCornerRadius}
+          fill={getProcessColor()}
+        />
+      )}
     </g>
   );
 };
