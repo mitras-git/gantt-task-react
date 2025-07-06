@@ -53,7 +53,6 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   fontFamily = "Arial, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue",
   fontSize = "14px",
   arrowIndent = 20,
-  todayColor = "rgba(252, 248, 227, 0.5)",
   viewDate,
   TooltipContent = StandardTooltipContent,
   TaskListHeader = TaskListHeaderDefault,
@@ -393,8 +392,6 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     tasks: tasks,
     rowHeight,
     dates: dateSetup.dates,
-    todayColor,
-    rtl,
   };
   const calendarProps: CalendarProps = {
     dateSetup,
