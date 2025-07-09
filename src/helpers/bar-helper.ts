@@ -105,7 +105,7 @@ const convertToBarTask = (
         dates,
         columnWidth,
         rowHeight,
-        taskHeight,
+        taskHeight/2,
         barCornerRadius,
         handleWidth,
         rtl,

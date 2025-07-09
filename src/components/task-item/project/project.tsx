@@ -2,19 +2,19 @@ import React from "react";
 import { TaskItemProps } from "../task-item";
 import styles from "./project.module.css";
 
-export const Project: React.FC<TaskItemProps> = ({ task, isSelected }) => {
-  const barColor = isSelected
-    ? task.styles.backgroundSelectedColor
-    : task.styles.backgroundColor;
-  const processColor = isSelected
-    ? task.styles.progressSelectedColor
-    : task.styles.progressColor;
+export const Project: React.FC<TaskItemProps> = ({ task }) => {
+  // const barColor = isSelected
+  //   ? task.styles.backgroundSelectedColor
+  //   : task.styles.backgroundColor;
+  // const processColor = isSelected
+  //   ? task.styles.progressSelectedColor
+  //   : task.styles.progressColor;
   const projectWith = task.x2 - task.x1;
-  
+
   return (
     <g tabIndex={0} className={styles.projectWrapper}>
       <rect
-        fill={barColor}
+        fill="#e6a9a0"
         x={task.x1}
         width={projectWith}
         y={task.y}
@@ -30,7 +30,7 @@ export const Project: React.FC<TaskItemProps> = ({ task, isSelected }) => {
         height={task.height}
         ry={task.barCornerRadius}
         rx={task.barCornerRadius}
-        fill={processColor}
+        fill="#d67162"
       />
     </g>
   );
