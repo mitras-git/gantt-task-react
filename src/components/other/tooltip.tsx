@@ -122,24 +122,65 @@ export const StandardTooltipContent: React.FC<{
     fontFamily,
   };
   return (
-    <div className={styles.tooltipDefaultContainer} style={style}>
-      <b style={{ fontSize: fontSize + 6 }}>{`${
-        task.name
-      }: ${task.start.getDate()}-${
-        task.start.getMonth() + 1
-      }-${task.start.getFullYear()} - ${task.end.getDate()}-${
-        task.end.getMonth() + 1
-      }-${task.end.getFullYear()}`}</b>
-      {task.end.getTime() - task.start.getTime() !== 0 && (
-        <p className={styles.tooltipDefaultContainerParagraph}>{`Duration: ${~~(
-          (task.end.getTime() - task.start.getTime()) /
-          (1000 * 60 * 60 * 24)
-        )} day(s)`}</p>
-      )}
+    // <div className={styles.tooltipDefaultContainer} style={style}>
+    //   <b style={{ fontSize: fontSize + 6 }}>{`${
+    //     task.name
+    //   }: ${task.start.getDate()}-${
+    //     task.start.getMonth() + 1
+    //   }-${task.start.getFullYear()} - ${task.end.getDate()}-${
+    //     task.end.getMonth() + 1
+    //   }-${task.end.getFullYear()}`}</b>
+    //   {task.end.getTime() - task.start.getTime() !== 0 && (
+    //     <p className={styles.tooltipDefaultContainerParagraph}>{`Duration: ${~~(
+    //       (task.end.getTime() - task.start.getTime()) /
+    //       (1000 * 60 * 60 * 24)
+    //     )} day(s)`}</p>
+    //   )}
 
-      <p className={styles.tooltipDefaultContainerParagraph}>
-        {!!task.progress && `Progress: ${task.progress} %`}
-      </p>
+    //   <p className={styles.tooltipDefaultContainerParagraph}>
+    //     {!!task.progress && `Progress: ${task.progress} %`}
+    //   </p>
+    // </div>
+
+    <div className={styles.tooltipDefaultContainer} style={style}>
+      <table className={styles.tooltipTable}>
+        <tbody>
+          <tr>
+            <td className={styles.tooltipLabel}>Name</td>
+            <td className={styles.tooltipValue}>{task.name}</td>
+          </tr>
+          {task.type != "milestone" && (
+            <React.Fragment>
+              <tr>
+                <td className={styles.tooltipLabel}>Start Date</td>
+                <td className={styles.tooltipValue}>
+                  {`${task.start.getDate().toString().padStart(2, '0')}-${(task.start.getMonth() + 1).toString().padStart(2, '0')}-${task.start.getFullYear()}`}
+                </td>
+              </tr>
+              <tr>
+                <td className={styles.tooltipLabel}>End Date</td>
+                <td className={styles.tooltipValue}>
+                  {`${task.end.getDate().toString().padStart(2, '0')}-${(task.end.getMonth() + 1).toString().padStart(2, '0')}-${task.end.getFullYear()}`}
+                </td>
+              </tr>
+            </React.Fragment>
+          )}
+          {task.type === "milestone" && (
+            <tr>
+            <td className={styles.tooltipLabel}>Date</td>
+            <td className={styles.tooltipValue}>
+              {`${task.start.getDate().toString().padStart(2, '0')}-${(task.start.getMonth() + 1).toString().padStart(2, '0')}-${task.start.getFullYear()}`}
+            </td>
+          </tr>
+          )}
+          {!!task.progress && (
+            <tr>
+              <td className={styles.tooltipLabel}>Progress</td>
+              <td className={styles.tooltipValue}>{task.progress.toFixed(2)}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

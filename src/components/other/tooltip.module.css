@@ -28,3 +28,34 @@
   display: flex;
   pointer-events: none;
 }
+
+.tooltipTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.tooltipLabel {
+  padding: 2px 8px 2px 0;
+  font-weight: 500;
+  color: #666;
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.tooltipValue {
+  padding: 2px 0;
+  color: #333;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tooltipTable tr {
+  border: none;
+}
+
+.tooltipTable td {
+  border: none;
+}
