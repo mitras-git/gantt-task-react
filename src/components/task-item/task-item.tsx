@@ -108,7 +108,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       }}
     >
       {taskItem}
-      <text
+      {task.type != "project" && (<text
         x={getX()}
         y={task.y + (task.typeInternal === "project" ? taskHeight/2 : taskHeight) * 0.5}
         className={
@@ -119,7 +119,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
         ref={textRef}
       >
         {task.name}
-      </text>
+      </text>)}
     </g>
   );
 };
