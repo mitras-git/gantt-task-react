@@ -23,7 +23,7 @@ export const Project: React.FC<TaskItemProps> = ({ task }) => {
         ry={task.barCornerRadius}
         className={styles.projectBackground}
       />
-      <rect
+      {/* <rect
         x={task.progressX}
         width={task.progressWidth}
         y={task.y}
@@ -31,7 +31,47 @@ export const Project: React.FC<TaskItemProps> = ({ task }) => {
         ry={task.barCornerRadius}
         rx={task.barCornerRadius}
         fill="#d67162"
-      />
+      /> */}
+      {task.progressWidth > task.barCornerRadius ? (
+              <React.Fragment>
+                <defs>
+                  <clipPath id={`barClipLeft-${task.x1}`}>
+                    <rect
+                      x={task.progressX}
+                      y={task.y}
+                      width={task.progressWidth}
+                      height={task.height}
+                      rx={task.barCornerRadius}
+                      ry={task.barCornerRadius}
+                    />
+                    <rect
+                      x={task.progressX + task.barCornerRadius}
+                      y={task.y}
+                      width={task.progressWidth - task.barCornerRadius}
+                      height={task.height}
+                    />
+                  </clipPath>
+                </defs>
+                <rect
+                  x={task.progressX}
+                  width={task.progressWidth}
+                  y={task.y}
+                  height={task.height}
+                  fill="#d67162"
+                  clipPath={`url(#barClipLeft-${task.x1})`}
+                />
+              </React.Fragment>
+            ) : (
+              <rect
+                x={task.progressX}
+                width={task.progressWidth}
+                y={task.y}
+                height={task.height}
+                rx={task.barCornerRadius}
+                ry={task.barCornerRadius}
+                fill="#d67162"
+              />
+            )}
     </g>
   );
 };
