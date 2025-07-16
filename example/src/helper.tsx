@@ -34,7 +34,7 @@ export function initTasks() {
       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4, 0, 0),
       name: "Research",
       id: "Task 1",
-      progress: 25,
+      progress: 100,
       dependencies: ["Task 0"],
       type: "task",
       project: "ProjectSample",

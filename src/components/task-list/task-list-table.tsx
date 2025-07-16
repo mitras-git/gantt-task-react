@@ -55,12 +55,20 @@ export const TaskListTableDefault: React.FC<{
       }}
     >
       {tasks.map(t => {
+        
         let expanderSymbol = "";
         if (t.hideChildren === false) {
           expanderSymbol = "▼";
         } else if (t.hideChildren === true) {
           expanderSymbol = "▶";
         }
+
+        let taskProgressComplete: () => boolean = () => {
+          if (t.progress) {
+            return t.progress === 100;
+          }
+          return false;
+        };
 
         return (
           <div
@@ -87,7 +95,7 @@ export const TaskListTableDefault: React.FC<{
                 >
                   {expanderSymbol}
                 </div>
-                <div>{t.name}</div>
+                <div className={ taskProgressComplete() ? styles.taskListOnComplete : "" }>{t.name}</div>
               </div>
             </div>
             {/* <div
