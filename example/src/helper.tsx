@@ -6,9 +6,20 @@ export function initTasks() {
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-      name: "Some Project",
+      name: "Test Project",
       id: "ProjectSample",
       progress: 25,
+      type: "project",
+      hideChildren: false,
+      displayOrder: 1,
+    },
+    {
+      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
+      name: "Some Project under Test Project",
+      id: "ProjectSampleunderTest",
+      progress: 25,
+      project: "ProjectSample",
       type: "project",
       hideChildren: false,
       displayOrder: 1,
@@ -26,7 +37,7 @@ export function initTasks() {
       id: "Task 0",
       progress: 45,
       type: "task",
-      project: "ProjectSample",
+      project: "ProjectSampleunderTest",
       displayOrder: 2,
     },
     {
@@ -37,7 +48,7 @@ export function initTasks() {
       progress: 100,
       dependencies: ["Task 0"],
       type: "task",
-      project: "ProjectSample",
+      project: "ProjectSampleunderTest",
       displayOrder: 3,
     },
     {
@@ -48,7 +59,7 @@ export function initTasks() {
       progress: 10,
       dependencies: ["Task 1"],
       type: "task",
-      project: "ProjectSample",
+      project: "ProjectSampleunderTest",
       displayOrder: 4,
     },
     {
@@ -59,7 +70,7 @@ export function initTasks() {
       progress: 2,
       dependencies: ["Task 2"],
       type: "task",
-      project: "ProjectSample",
+      project: "ProjectSampleunderTest",
       displayOrder: 5,
     },
     {
@@ -70,7 +81,7 @@ export function initTasks() {
       type: "task",
       progress: 70,
       dependencies: ["Task 2"],
-      project: "ProjectSample",
+      project: "ProjectSampleunderTest",
       displayOrder: 6,
     },
     {
@@ -81,7 +92,7 @@ export function initTasks() {
       progress: currentDate.getMonth(),
       type: "milestone",
       dependencies: ["Task 4"],
-      project: "ProjectSample",
+      project: "ProjectSampleunderTest",
       displayOrder: 7,
     },
     {
