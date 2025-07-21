@@ -16,6 +16,15 @@ export type TaskItemProps = {
   isDelete: boolean;
   isSelected: boolean;
   rtl: boolean;
+  /**
+   * Indicates that the task should render as split showing
+   * planned and actual bars
+   */
+  shouldRenderSplit?: boolean;
+  /**
+   * Coordinates for the actual bar when task is split
+   */
+  actualCoordinates?: { ax1: number; ax2: number; ay: number } | null;
   onEventStart: (
     action: GanttContentMoveAction,
     selectedTask: BarTask,

@@ -16,7 +16,13 @@ type BarDisplayProps = {
     backgroundSelectedColor: string;
     progressColor: string;
     progressSelectedColor: string;
+    auctualColor?: string;
   };
+  /**
+   * Draw additional bar using these coordinates when task is split
+   */
+  actual?: { x: number; width: number; y: number } | null;
+  shouldRenderSplit?: boolean;
   onMouseDown: (event: React.MouseEvent<SVGPolygonElement, MouseEvent>) => void;
 };
 export const BarDisplay: React.FC<BarDisplayProps> = ({
@@ -29,6 +35,8 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
   progressWidth,
   barCornerRadius,
   styles,
+  actual,
+  shouldRenderSplit,
   onMouseDown,
 }) => {
   const getProcessColor = () => {
@@ -60,6 +68,18 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
         rx={barCornerRadius}
         fill={getProcessColor()}
       />
+      {shouldRenderSplit && actual && (
+        <rect
+          x={actual.x}
+          width={actual.width}
+          y={actual.y}
+          height={height}
+          ry={barCornerRadius}
+          rx={barCornerRadius}
+          fill={styles.auctualColor || styles.backgroundColor}
+          className={style.actualBackground}
+        />
+      )}
     </g>
   );
 
