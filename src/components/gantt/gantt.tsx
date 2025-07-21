@@ -123,6 +123,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
       convertToBarTasks(
         filteredTasks,
         newDates,
+        newDates,
         columnWidth,
         rowHeight,
         taskHeight,

@@ -44,7 +44,9 @@ export const convertToBarTasks = (
       projectBackgroundColor,
       projectBackgroundSelectedColor,
       milestoneBackgroundColor,
-      milestoneBackgroundSelectedColor
+      milestoneBackgroundSelectedColor,
+      t.styles?.auctualColor || "",
+      !!t.createSplit && !!t.auctualStart && !!t.auctualEnd
     );
   });
 
