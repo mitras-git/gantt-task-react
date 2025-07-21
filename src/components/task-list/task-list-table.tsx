@@ -55,13 +55,16 @@ export const TaskListTableDefault: React.FC<{
       }}
     >
       {tasks.map(t => {
-        
+
         let expanderSymbol = "";
         if (t.hideChildren === false) {
           expanderSymbol = "▼";
         } else if (t.hideChildren === true) {
           expanderSymbol = "▶";
         }
+
+        const indentLevel = t.heirarchyLevel || 0;
+        const indentPx = indentLevel * 20;
 
         let taskProgressComplete: () => boolean = () => {
           if (t.progress) {
@@ -85,6 +88,7 @@ export const TaskListTableDefault: React.FC<{
               title={t.name}
             >
               <div className={styles.taskListNameWrapper}>
+                <div style={{ width: `${indentPx}px`, flexShrink: 0 }} />
                 <div
                   className={
                     expanderSymbol

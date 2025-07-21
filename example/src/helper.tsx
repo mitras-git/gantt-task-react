@@ -12,6 +12,7 @@ export function initTasks() {
       type: "project",
       hideChildren: false,
       displayOrder: 1,
+      heirarchyLevel: 0,
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
@@ -23,6 +24,7 @@ export function initTasks() {
       type: "project",
       hideChildren: false,
       displayOrder: 1,
+      heirarchyLevel: 0,
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
@@ -39,6 +41,7 @@ export function initTasks() {
       type: "task",
       project: "ProjectSampleunderTest",
       displayOrder: 2,
+      heirarchyLevel: 0,
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
@@ -50,6 +53,7 @@ export function initTasks() {
       type: "task",
       project: "ProjectSampleunderTest",
       displayOrder: 3,
+      heirarchyLevel: 0
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4),
@@ -61,6 +65,7 @@ export function initTasks() {
       type: "task",
       project: "ProjectSampleunderTest",
       displayOrder: 4,
+      heirarchyLevel: 0
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
@@ -72,6 +77,7 @@ export function initTasks() {
       type: "task",
       project: "ProjectSampleunderTest",
       displayOrder: 5,
+      heirarchyLevel: 0
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
@@ -83,6 +89,7 @@ export function initTasks() {
       dependencies: ["Task 2"],
       project: "ProjectSampleunderTest",
       displayOrder: 6,
+      heirarchyLevel: 0
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
@@ -94,6 +101,7 @@ export function initTasks() {
       dependencies: ["Task 4"],
       project: "ProjectSampleunderTest",
       displayOrder: 7,
+      heirarchyLevel: 0
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 18),
@@ -103,11 +111,32 @@ export function initTasks() {
       progress: 0,
       isDisabled: true,
       type: "task",
+      heirarchyLevel: 0
     },
   ];
   return tasks;
+  // return hierarchyCalculation(tasks);
 }
 
+// export function hierarchyCalculation(tasks: Task[]): Task[] {
+//   const taskMap: Map<string, Task> = new Map(tasks.map(task => [task.id, task]));
+
+//   tasks.forEach(task => {
+//     if (task.project) {
+//       console.log("If level 1 triggered for task:", task.name);
+//       const parentTask = taskMap.get(task.project);
+//       if (parentTask) {
+//         console.log("If level 2 triggered for task:", task.name);
+//         task.heirarchyLevel = (parentTask.heirarchyLevel || 0) + 1;
+//       }
+//     } else {
+//       console.log("Else 0 triggered for task:", task.name);
+//       task.heirarchyLevel = 0;
+//     }
+//   });
+
+//   return tasks;
+// }
 export function getStartEndDateForProject(tasks: Task[], projectId: string) {
   const projectTasks = tasks.filter(t => t.project === projectId);
   let start = projectTasks[0].start;
