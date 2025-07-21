@@ -16,6 +16,9 @@ export interface Task {
   name: string;
   start: Date;
   end: Date;
+  auctualStart?: Date;
+  auctualEnd?: Date;
+  createSplit?: boolean;
   /**
    * From 0 to 100
    */
@@ -25,6 +28,7 @@ export interface Task {
     backgroundSelectedColor?: string;
     progressColor?: string;
     progressSelectedColor?: string;
+    auctualColor?: string;
   };
   isDisabled?: boolean;
   project?: string;

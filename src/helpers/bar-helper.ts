@@ -5,6 +5,7 @@ import { BarMoveAction } from "../types/gantt-task-actions";
 export const convertToBarTasks = (
   tasks: Task[],
   dates: Date[],
+  auctualDates: Date[] = [],
   columnWidth: number,
   rowHeight: number,
   taskHeight: number,
@@ -27,6 +28,7 @@ export const convertToBarTasks = (
       t,
       i,
       dates,
+      auctualDates,
       columnWidth,
       rowHeight,
       taskHeight,
@@ -65,6 +67,7 @@ const convertToBarTask = (
   task: Task,
   index: number,
   dates: Date[],
+  auctualDates: Date[],
   columnWidth: number,
   rowHeight: number,
   taskHeight: number,
@@ -80,7 +83,9 @@ const convertToBarTask = (
   projectBackgroundColor: string,
   projectBackgroundSelectedColor: string,
   milestoneBackgroundColor: string,
-  milestoneBackgroundSelectedColor: string
+  milestoneBackgroundSelectedColor: string,
+  actualColor: string = "",
+  shouldSplit: boolean = false
 ): BarTask => {
   let barTask: BarTask;
   switch (task.type) {
@@ -103,6 +108,7 @@ const convertToBarTask = (
         task,
         index,
         dates,
+        auctualDates,
         columnWidth,
         rowHeight,
         taskHeight/2,
@@ -112,7 +118,9 @@ const convertToBarTask = (
         projectProgressColor,
         projectProgressSelectedColor,
         projectBackgroundColor,
-        projectBackgroundSelectedColor
+        projectBackgroundSelectedColor,
+        actualColor,
+        shouldSplit
       );
       break;
     default:
@@ -120,6 +128,7 @@ const convertToBarTask = (
         task,
         index,
         dates,
+        auctualDates,
         columnWidth,
         rowHeight,
         taskHeight,
@@ -129,7 +138,9 @@ const convertToBarTask = (
         barProgressColor,
         barProgressSelectedColor,
         barBackgroundColor,
-        barBackgroundSelectedColor
+        barBackgroundSelectedColor,
+        actualColor,
+        shouldSplit
       );
       break;
   }
@@ -140,6 +151,7 @@ const convertToBar = (
   task: Task,
   index: number,
   dates: Date[],
+  actualDates: Date[],
   columnWidth: number,
   rowHeight: number,
   taskHeight: number,
@@ -149,10 +161,16 @@ const convertToBar = (
   barProgressColor: string,
   barProgressSelectedColor: string,
   barBackgroundColor: string,
-  barBackgroundSelectedColor: string
+  barBackgroundSelectedColor: string,
+  auctualColor: string,
+  shouldSplit: boolean
 ): BarTask => {
+
   let x1: number;
   let x2: number;
+  let ax1: number = 0;
+  let ax2: number = 0;
+  
   if (rtl) {
     x2 = taskXCoordinateRTL(task.start, dates, columnWidth);
     x1 = taskXCoordinateRTL(task.end, dates, columnWidth);
@@ -160,6 +178,18 @@ const convertToBar = (
     x1 = taskXCoordinate(task.start, dates, columnWidth);
     x2 = taskXCoordinate(task.end, dates, columnWidth);
   }
+
+  if (shouldSplit) {  
+    if (rtl) {
+      ax1 = task.auctualStart ? taskXCoordinateRTL(task.auctualStart, actualDates, columnWidth) : 0;
+      ax2 = task.auctualEnd ? taskXCoordinateRTL(task.auctualEnd, actualDates, columnWidth) : 0;
+    } else {
+      ax1 = task.auctualStart ? taskXCoordinate(task.auctualStart, actualDates, columnWidth) : 0;
+      ax2 = task.auctualEnd ? taskXCoordinate(task.auctualEnd, actualDates, columnWidth) : 0;
+    }
+  }
+
+
   let typeInternal: TaskTypeInternal = task.type;
   if (typeInternal === "task" && x2 - x1 < handleWidth * 2) {
     typeInternal = "smalltask";
@@ -172,7 +202,8 @@ const convertToBar = (
     task.progress,
     rtl
   );
-  const y = taskYCoordinate(index, rowHeight, taskHeight);
+  const y = taskYCoordinate(index, rowHeight, taskHeight, shouldSplit);
+  const y1 = shouldSplit ? y + taskHeight * 0.6 : y;
   const hideChildren = task.type === "project" ? task.hideChildren : undefined;
 
   const styles = {
@@ -180,6 +211,7 @@ const convertToBar = (
     backgroundSelectedColor: barBackgroundSelectedColor,
     progressColor: barProgressColor,
     progressSelectedColor: barProgressSelectedColor,
+    auctualColor,
     ...task.styles,
   };
   return {
@@ -187,7 +219,11 @@ const convertToBar = (
     typeInternal,
     x1,
     x2,
+    ax1,
+    ax2,
+    shouldSplit,
     y,
+    y1,
     index,
     progressX,
     progressWidth,
@@ -231,7 +267,11 @@ const convertToMilestone = (
     end: task.start,
     x1,
     x2,
+    ax1: x1, // Milestones don't have actuals, so set to x1
+    ax2: x2, // Milestones don't have actuals, so set to x2
+    shouldSplit: false,
     y,
+    y1: y, // Milestones don't split, so y1 = y
     index,
     progressX: 0,
     progressWidth: 0,
@@ -267,10 +307,14 @@ const taskXCoordinateRTL = (
 const taskYCoordinate = (
   index: number,
   rowHeight: number,
-  taskHeight: number
+  taskHeight: number,
+  isSplit: boolean = false
 ) => {
-  const y = index * rowHeight + (rowHeight - taskHeight) / 2;
-  return y;
+  if (isSplit) {
+    const splitTaskHeight = taskHeight * 0.8; // Slightly smaller bars
+    return index * rowHeight + (rowHeight - splitTaskHeight * 2) / 3;
+  }
+  return index * rowHeight + (rowHeight - taskHeight) / 2;
 };
 
 export const progressWithByParams = (

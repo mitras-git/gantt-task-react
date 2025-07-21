@@ -5,7 +5,11 @@ export interface BarTask extends Task {
   typeInternal: TaskTypeInternal;
   x1: number;
   x2: number;
+  ax1: number;
+  ax2: number;
+  shouldSplit: boolean;
   y: number;
+  y1: number;
   height: number;
   progressX: number;
   progressWidth: number;
@@ -17,6 +21,7 @@ export interface BarTask extends Task {
     backgroundSelectedColor: string;
     progressColor: string;
     progressSelectedColor: string;
+    auctualColor?: string;
   };
 }
 
