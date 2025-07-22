@@ -16,7 +16,7 @@ type BarDisplayProps = {
     backgroundSelectedColor: string;
     progressColor: string;
     progressSelectedColor: string;
-    auctualColor?: string;
+    actualColor?: string;
   };
   /**
    * Draw additional bar using these coordinates when task is split
@@ -76,7 +76,7 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
           height={actual.height}
           ry={barCornerRadius}
           rx={barCornerRadius}
-          fill={styles.auctualColor || "#80fa65"}
+          fill={styles.actualColor || "#80fa65"}
           className={style.actualBackground}
         />
       )}
