@@ -46,7 +46,7 @@ export const convertToBarTasks = (
       projectBackgroundSelectedColor,
       milestoneBackgroundColor,
       milestoneBackgroundSelectedColor,
-      t.styles?.auctualColor ? auctualColor : "",
+      t.styles?.actualColor ? auctualColor : "",
       !!t.createSplit && !!t.auctualStart && !!t.auctualEnd
     );
   });
@@ -216,7 +216,7 @@ const convertToBar = (
     backgroundSelectedColor: barBackgroundSelectedColor,
     progressColor: barProgressColor,
     progressSelectedColor: barProgressSelectedColor,
-    auctualColor,
+    actualColor: auctualColor,
     ...task.styles,
   };
   return {
