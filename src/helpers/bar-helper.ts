@@ -44,7 +44,9 @@ export const convertToBarTasks = (
       projectBackgroundColor,
       projectBackgroundSelectedColor,
       milestoneBackgroundColor,
-      milestoneBackgroundSelectedColor
+      milestoneBackgroundSelectedColor,
+      t.styles?.auctualColor || "",
+      !!t.createSplit && !!t.auctualStart && !!t.auctualEnd
     );
   });
 
@@ -202,8 +204,10 @@ const convertToBar = (
     task.progress,
     rtl
   );
-  const y = taskYCoordinate(index, rowHeight, taskHeight, shouldSplit);
-  const y1 = shouldSplit ? y + taskHeight * 0.6 : y;
+  const plannedHeight = shouldSplit ? taskHeight * 0.6 : taskHeight;
+  const actualHeight = shouldSplit ? taskHeight * 0.4 : 0;
+  const y = taskYCoordinate(index, rowHeight, plannedHeight, shouldSplit, actualHeight);
+  const y1 = shouldSplit ? y + plannedHeight : y;
   const hideChildren = task.type === "project" ? task.hideChildren : undefined;
 
   const styles = {
@@ -230,7 +234,8 @@ const convertToBar = (
     barCornerRadius,
     handleWidth,
     hideChildren,
-    height: taskHeight,
+    height: plannedHeight,
+    actualHeight,
     barChildren: [],
     styles,
   };
@@ -308,11 +313,12 @@ const taskYCoordinate = (
   index: number,
   rowHeight: number,
   taskHeight: number,
-  isSplit: boolean = false
+  isSplit: boolean = false,
+  actualHeight: number = 0
 ) => {
   if (isSplit) {
-    const splitTaskHeight = taskHeight * 0.8; // Slightly smaller bars
-    return index * rowHeight + (rowHeight - splitTaskHeight * 2) / 3;
+    const totalHeight = taskHeight + actualHeight;
+    return index * rowHeight + (rowHeight - totalHeight) / 2;
   }
   return index * rowHeight + (rowHeight - taskHeight) / 2;
 };

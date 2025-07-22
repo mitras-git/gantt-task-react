@@ -19,3 +19,9 @@
   user-select: none;
   stroke-width: 0;
 }
+
+.actualBackground {
+  user-select: none;
+  stroke-width: 0;
+  opacity: 0.7;
+}
