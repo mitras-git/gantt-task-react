@@ -22,7 +22,7 @@ export const convertToBarTasks = (
   projectBackgroundSelectedColor: string,
   milestoneBackgroundColor: string,
   milestoneBackgroundSelectedColor: string,
-  auctualColor: string
+  actualColor: string
 ) => {
   let barTasks = tasks.map((t, i) => {
     return convertToBarTask(
@@ -46,7 +46,7 @@ export const convertToBarTasks = (
       projectBackgroundSelectedColor,
       milestoneBackgroundColor,
       milestoneBackgroundSelectedColor,
-      auctualColor,
+      actualColor,
       !!t.createSplit && !!t.auctualStart && !!t.auctualEnd
     );
   });
@@ -165,7 +165,7 @@ const convertToBar = (
   barProgressSelectedColor: string,
   barBackgroundColor: string,
   barBackgroundSelectedColor: string,
-  auctualColor: string,
+  actualColor: string,
   shouldSplit: boolean
 ): BarTask => {
 
@@ -216,7 +216,7 @@ const convertToBar = (
     backgroundSelectedColor: barBackgroundSelectedColor,
     progressColor: barProgressColor,
     progressSelectedColor: barProgressSelectedColor,
-    actualColor: auctualColor,
+    actualColor: actualColor,
     ...task.styles,
   };
   return {
