@@ -47,7 +47,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
   const textRef = useRef<SVGTextElement>(null);
   const [taskItem, setTaskItem] = useState<JSX.Element>(<div />);
   const [isTextInside, setIsTextInside] = useState(true);
-  const shouldRenderSplit = task.shouldSplit && task.ax1 && task.ax2;
+  const shouldRenderSplit = !!(task.shouldSplit && task.ax1 && task.ax2);
 
   const barProps = {
     ...props,
@@ -128,7 +128,8 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       {taskItem}
       {task.type != "project" && (<text
         x={getX()}
-        y={task.y + (task.typeInternal === "project" ? taskHeight / 2 : taskHeight) * 0.5}
+        y={ shouldRenderSplit ? (task.y + taskHeight * 0.5) - 5 : task.y + taskHeight * 0.5}
+        // y={task.y + (task.typeInternal === "project" ? taskHeight / 2 : taskHeight) * 0.5}
         className={
           isTextInside
             ? style.barLabel
