@@ -76,7 +76,7 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
           height={actual.height}
           ry={barCornerRadius}
           rx={barCornerRadius}
-          fill={styles.auctualColor || styles.backgroundColor}
+          fill={styles.auctualColor || "#80fa65"}
           className={style.actualBackground}
         />
       )}
