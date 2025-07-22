@@ -11,6 +11,8 @@ export interface BarTask extends Task {
   y: number;
   y1: number;
   height: number;
+  /** Height of the actual bar when task is split */
+  actualHeight?: number;
   progressX: number;
   progressWidth: number;
   barCornerRadius: number;

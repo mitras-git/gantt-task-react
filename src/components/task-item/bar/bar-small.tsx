@@ -8,6 +8,8 @@ export const BarSmall: React.FC<TaskItemProps> = ({
   isDateChangeable,
   onEventStart,
   isSelected,
+  shouldRenderSplit,
+  actualCoordinates,
 }) => {
   return (
     <g className={styles.barWrapper} tabIndex={0}>
@@ -20,6 +22,17 @@ export const BarSmall: React.FC<TaskItemProps> = ({
         progressWidth={task.progressWidth}
         barCornerRadius={task.barCornerRadius}
         styles={task.styles}
+        actual={
+          shouldRenderSplit && actualCoordinates
+            ? {
+                x: actualCoordinates.ax1,
+                width: actualCoordinates.ax2 - actualCoordinates.ax1,
+                y: actualCoordinates.ay,
+                height: task.actualHeight || task.height,
+              }
+            : null
+        }
+        shouldRenderSplit={shouldRenderSplit}
         isSelected={isSelected}
         onMouseDown={e => {
           isDateChangeable && onEventStart("move", task, e);
