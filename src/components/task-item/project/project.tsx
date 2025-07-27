@@ -1,75 +1,29 @@
 import React from "react";
+import { BarDisplay } from "../bar/bar-display";
 import { TaskItemProps } from "../task-item";
 import styles from "./project.module.css";
 
-export const Project: React.FC<TaskItemProps> = ({ task, isSelected }) => {
-  const barColor = isSelected
-    ? task.styles.backgroundSelectedColor
-    : task.styles.backgroundColor;
-  // FIX: Renamed 'processColor' to 'progressColor' for consistency and correctness
-  const progressColor = isSelected
-    ? task.styles.progressSelectedColor
-    : task.styles.progressColor;
-  // FIX: Renamed 'projectWith' to 'projectWidth' for clarity
-  const projectWidth = task.x2 - task.x1;
-
-  const projectLeftTriangle = [
-    task.x1,
-    task.y + task.height / 2 - 1,
-    task.x1,
-    task.y + task.height,
-    task.x1 + 15,
-    task.y + task.height / 2 - 1,
-  ].join(",");
-  const projectRightTriangle = [
-    task.x2,
-    task.y + task.height / 2 - 1,
-    task.x2,
-    task.y + task.height,
-    task.x2 - 15,
-    task.y + task.height / 2 - 1,
-  ].join(",");
-
+export const Project: React.FC<TaskItemProps> = ({
+  task,
+  isDateChangeable,
+  onEventStart,
+  isSelected,
+}) => {
   return (
     <g tabIndex={0} className={styles.projectWrapper}>
-      <rect
-        fill={barColor}
+      <BarDisplay
         x={task.x1}
-        width={projectWidth} // Use corrected variable
         y={task.y}
+        width={task.x2 - task.x1}
         height={task.height}
-        rx={task.barCornerRadius}
-        ry={task.barCornerRadius}
-        className={styles.projectBackground}
-      />
-      <rect
-        x={task.progressX}
-        width={task.progressWidth}
-        y={task.y}
-        height={task.height}
-        ry={task.barCornerRadius}
-        rx={task.barCornerRadius}
-        fill={progressColor} // Use corrected variable
-      />
-      <rect
-        fill={barColor}
-        x={task.x1}
-        width={projectWidth} // Use corrected variable
-        y={task.y}
-        height={task.height / 2}
-        rx={task.barCornerRadius}
-        ry={task.barCornerRadius}
-        className={styles.projectTop}
-      />
-      <polygon
-        className={styles.projectTop}
-        points={projectLeftTriangle}
-        fill={barColor}
-      />
-      <polygon
-        className={styles.projectTop}
-        points={projectRightTriangle}
-        fill={barColor}
+        isSelected={isSelected}
+        progressX={task.progressX}
+        progressWidth={task.progressWidth}
+        barCornerRadius={task.barCornerRadius}
+        styles={task.styles}
+        onMouseDown={e => {
+          isDateChangeable && onEventStart("move", task, e);
+        }}
       />
     </g>
   );
