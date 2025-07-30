@@ -48,7 +48,6 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
   fontFamily,
   fontSize,
   rtl,
-  showTaskNameOnBar,
   setGanttEvent,
   setFailedTask,
   setSelectedTask,
