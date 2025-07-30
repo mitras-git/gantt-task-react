@@ -98,7 +98,7 @@ export const ganttDateRange = (
       newEndDate = startOfDate(newEndDate, "year");
       break;
     case ViewMode.Month:
-      newStartDate = addToDate(newStartDate, -1 * preStepsCount, "month");
+      newStartDate = addToDate(newStartDate, 7 * preStepsCount, "day");
       newStartDate = startOfDate(newStartDate, "month");
       newEndDate = addToDate(newEndDate, 2, "month"); // FIX: Reduced buffer from 1 year to 2 months
       newEndDate = startOfDate(newEndDate, "month");
