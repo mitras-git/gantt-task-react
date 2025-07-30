@@ -295,7 +295,6 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
               key={task.id}
               isSelected={!!selectedTask && task.id === selectedTask.id}
               rtl={rtl}
-              showTaskNameonBar={showTaskNameOnBar}
             />
           );
         })}
