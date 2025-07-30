@@ -126,7 +126,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
             }}
           >
             {taskItem}
-            {task.showTaskNameonBar && (
+            {task.showTaskNameonBar && task.type !== "project" && (
           <text
             x={getX()}
             y={
@@ -134,7 +134,6 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
           ? task.y + taskHeight * 0.5 - 5
           : task.y + taskHeight * 0.5
             }
-        // y={task.y + (task.typeInternal === "project" ? taskHeight / 2 : taskHeight) * 0.5}
         className={
           isTextInside
             ? style.barLabel
