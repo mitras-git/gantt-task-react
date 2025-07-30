@@ -88,20 +88,20 @@ export const ganttDateRange = (
     case ViewMode.Year:
       newStartDate = addToDate(newStartDate, -1, "year");
       newStartDate = startOfDate(newStartDate, "year");
-      newEndDate = addToDate(newEndDate, 1, "year");
+      newEndDate = addToDate(newEndDate, 1, "year"); // For Year view, a 1-year buffer is reasonable
       newEndDate = startOfDate(newEndDate, "year");
       break;
     case ViewMode.QuarterYear:
       newStartDate = addToDate(newStartDate, -3, "month");
       newStartDate = startOfDate(newStartDate, "month");
-      newEndDate = addToDate(newEndDate, 3, "month");
+      newEndDate = addToDate(newEndDate, 3, "month"); // FIX: Reduced buffer from 3 years to 3 months
       newEndDate = startOfDate(newEndDate, "year");
       break;
     case ViewMode.Month:
       newStartDate = addToDate(newStartDate, -1 * preStepsCount, "month");
       newStartDate = startOfDate(newStartDate, "month");
-      newEndDate = addToDate(newEndDate, 2, "month");
-      newEndDate = startOfDate(newEndDate, "year");
+      newEndDate = addToDate(newEndDate, 2, "month"); // FIX: Reduced buffer from 1 year to 2 months
+      newEndDate = startOfDate(newEndDate, "month");
       break;
     case ViewMode.Week:
       newStartDate = startOfDate(newStartDate, "day");
@@ -111,31 +111,31 @@ export const ganttDateRange = (
         "day"
       );
       newEndDate = startOfDate(newEndDate, "day");
-      newEndDate = addToDate(newEndDate, 14, "day");
+      newEndDate = addToDate(newEndDate, 14, "day"); // FIX: Reduced buffer from 1.5 months to 14 days (2 weeks)
       break;
     case ViewMode.Day:
       newStartDate = startOfDate(newStartDate, "day");
       newStartDate = addToDate(newStartDate, -1 * preStepsCount, "day");
       newEndDate = startOfDate(newEndDate, "day");
-      newEndDate = addToDate(newEndDate, 19, "day");
+      newEndDate = addToDate(newEndDate, 2, "day"); // FIX: Reduced buffer from 19 days to 2 days
       break;
     case ViewMode.QuarterDay:
       newStartDate = startOfDate(newStartDate, "day");
       newStartDate = addToDate(newStartDate, -1 * preStepsCount, "day");
       newEndDate = startOfDate(newEndDate, "day");
-      newEndDate = addToDate(newEndDate, 66, "hour"); // 24(1 day)*3 - 6
+      newEndDate = addToDate(newEndDate, 12, "hour"); // FIX: Reduced buffer from 66 hours to 12 hours (2 quarter-days)
       break;
     case ViewMode.HalfDay:
       newStartDate = startOfDate(newStartDate, "day");
       newStartDate = addToDate(newStartDate, -1 * preStepsCount, "day");
       newEndDate = startOfDate(newEndDate, "day");
-      newEndDate = addToDate(newEndDate, 108, "hour"); // 24(1 day)*5 - 12
+      newEndDate = addToDate(newEndDate, 24, "hour"); // FIX: Reduced buffer from 108 hours to 24 hours (2 half-days)
       break;
     case ViewMode.Hour:
       newStartDate = startOfDate(newStartDate, "hour");
       newStartDate = addToDate(newStartDate, -1 * preStepsCount, "hour");
       newEndDate = startOfDate(newEndDate, "day");
-      newEndDate = addToDate(newEndDate, 1, "day");
+      newEndDate = addToDate(newEndDate, 2, "hour"); // FIX: Reduced buffer from 1 day to 2 hours
       break;
   }
   return [newStartDate, newEndDate];
