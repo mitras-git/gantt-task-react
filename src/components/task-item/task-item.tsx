@@ -16,6 +16,15 @@ export type TaskItemProps = {
   isDelete: boolean;
   isSelected: boolean;
   rtl: boolean;
+  /**
+   * Indicates that the task should render as split showing
+   * planned and actual bars
+   */
+  shouldRenderSplit?: boolean;
+  /**
+   * Coordinates for the actual bar when task is split
+   */
+  actualCoordinates?: { ax1: number; ax2: number; ay: number; height: number } | null;
   onEventStart: (
     action: GanttContentMoveAction,
     selectedTask: BarTask,
@@ -38,6 +47,15 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
   const textRef = useRef<SVGTextElement>(null);
   const [taskItem, setTaskItem] = useState<JSX.Element>(<div />);
   const [isTextInside, setIsTextInside] = useState(true);
+  const shouldRenderSplit = !!(task.shouldSplit && task.ax1 && task.ax2);
+
+  const barProps = {
+    ...props,
+    shouldRenderSplit,
+    actualCoordinates: shouldRenderSplit
+      ? { ax1: task.ax1, ax2: task.ax2, ay: task.y1, height: task.actualHeight || task.height }
+      : null,
+  };
 
   useEffect(() => {
     switch (task.typeInternal) {
@@ -48,10 +66,10 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
         setTaskItem(<Project {...props} />);
         break;
       case "smalltask":
-        setTaskItem(<BarSmall {...props} />);
+        setTaskItem(<BarSmall {...barProps} />);
         break;
       default:
-        setTaskItem(<Bar {...props} />);
+        setTaskItem(<Bar {...barProps} />);
         break;
     }
   }, [task, isSelected]);
@@ -105,23 +123,27 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       }}
       onFocus={() => {
         onEventStart("select", task);
-      }}
-    >
-      {taskItem}
-      {task.showTaskNameonBar && ( // Read from the task object
-        <text
-          x={getX()}
-          y={task.y + taskHeight * 0.5}
-          className={
-            isTextInside
-              ? style.barLabel
-              : style.barLabel && style.barLabelOutside
-          }
-          ref={textRef}
-        >
-          {task.name}
-        </text>
-      )}
+            }}
+          >
+            {taskItem}
+            {task.showTaskNameonBar && (
+          <text
+            x={getX()}
+            y={
+              shouldRenderSplit
+          ? task.y + taskHeight * 0.5 - 5
+          : task.y + taskHeight * 0.5
+            }
+        // y={task.y + (task.typeInternal === "project" ? taskHeight / 2 : taskHeight) * 0.5}
+        className={
+          isTextInside
+            ? style.barLabel
+            : style.barLabel && style.barLabelOutside
+        }
+        ref={textRef}
+      >
+        {task.name}
+      </text>)}
     </g>
   );
 };
