@@ -285,7 +285,7 @@ const convertToMilestone = (
     ax1: x1, 
     ax2: x2, 
     shouldSplit: false,
-    showTaskNameonBar, // Add property to the returned object
+    showTaskNameonBar,
     y,
     y1: y,
     index,
