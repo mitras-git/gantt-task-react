@@ -58,6 +58,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   TooltipContent = StandardTooltipContent,
   TaskListHeader = TaskListHeaderDefault,
   TaskListTable = TaskListTableDefault,
+  showTaskNameonBar = true,
   onDateChange,
   onProgressChange,
   onDoubleClick,
@@ -141,7 +142,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         projectBackgroundSelectedColor,
         milestoneBackgroundColor,
         milestoneBackgroundSelectedColor,
-        actualColor
+        actualColor,
+        showTaskNameonBar
       )
     );
   }, [
@@ -421,6 +423,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     arrowIndent,
     svgWidth,
     rtl,
+    showTaskNameOnBar: showTaskNameonBar,
     setGanttEvent,
     setFailedTask,
     setSelectedTask: handleSelectedTask,

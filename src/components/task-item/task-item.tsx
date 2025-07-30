@@ -20,6 +20,7 @@ export type TaskItemProps = {
    * Indicates that the task should render as split showing
    * planned and actual bars
    */
+  showTaskNameonBar?: boolean;
   shouldRenderSplit?: boolean;
   /**
    * Coordinates for the actual bar when task is split
@@ -40,6 +41,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
     taskHeight,
     isSelected,
     rtl,
+    showTaskNameonBar,
     onEventStart,
   } = {
     ...props,
@@ -123,12 +125,17 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       }}
       onFocus={() => {
         onEventStart("select", task);
-      }}
-    >
-      {taskItem}
-      {task.type != "project" && (<text
-        x={getX()}
-        y={ shouldRenderSplit ? (task.y + taskHeight * 0.5) - 5 : task.y + taskHeight * 0.5}
+            }}
+          >
+            {taskItem}
+            {task.type !== "project" && showTaskNameonBar && (
+          <text
+            x={getX()}
+            y={
+              shouldRenderSplit
+          ? task.y + taskHeight * 0.5 - 5
+          : task.y + taskHeight * 0.5
+            }
         // y={task.y + (task.typeInternal === "project" ? taskHeight / 2 : taskHeight) * 0.5}
         className={
           isTextInside
