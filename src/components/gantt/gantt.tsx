@@ -55,6 +55,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   fontSize = "14px",
   arrowIndent = 20,
   viewDate,
+  viewStartDate,
+  viewEndDate,
   TooltipContent = StandardTooltipContent,
   TaskListHeader = TaskListHeaderDefault,
   TaskListTable = TaskListTableDefault,
@@ -70,7 +72,9 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
   const [dateSetup, setDateSetup] = useState<DateSetup>(() => {
-    const [startDate, endDate] = ganttDateRange(tasks, viewMode, preStepsCount);
+    const [startDate, endDate] = (viewStartDate && viewEndDate) 
+        ? [viewStartDate, viewEndDate] 
+        : ganttDateRange(tasks, viewMode, preStepsCount);
     return { viewMode, dates: seedDates(startDate, endDate, viewMode) };
   });
   const [currentViewDate, setCurrentViewDate] = useState<Date | undefined>(
@@ -168,6 +172,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     rtl,
     scrollX,
     onExpanderClick,
+    viewStartDate,
+    viewEndDate,
   ]);
 
   useEffect(() => {
