@@ -130,7 +130,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
           <text
             x={getX()}
             y={
-              shouldRenderSplit
+              shouldRenderSplit && isTextInside
           ? task.y + taskHeight * 0.5 - 5
           : task.y + taskHeight * 0.5
             }
