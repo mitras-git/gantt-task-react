@@ -22,6 +22,7 @@ export const convertToBarTasks = (
   projectBackgroundSelectedColor: string,
   milestoneBackgroundColor: string,
   milestoneBackgroundSelectedColor: string,
+  milestoneSecondaryBackgroundColor: string,
   actualColor: string,
   showTaskNameonBar: boolean
 ) => {
@@ -47,8 +48,9 @@ export const convertToBarTasks = (
       projectBackgroundSelectedColor,
       milestoneBackgroundColor,
       milestoneBackgroundSelectedColor,
+      milestoneSecondaryBackgroundColor,
       actualColor,
-      !!t.createSplit && !!t.auctualStart && !!t.auctualEnd,
+      !!t.createSplit,
       showTaskNameonBar
     );
   });
@@ -89,17 +91,22 @@ const convertToBarTask = (
   projectBackgroundSelectedColor: string,
   milestoneBackgroundColor: string,
   milestoneBackgroundSelectedColor: string,
+  milestoneSecondaryBackgroundColor: string,
   actualColor: string,
   shouldSplit: boolean = false,
   showTaskNameonBar: boolean
 ): BarTask => {
   let barTask: BarTask;
+
+  const isSplit = shouldSplit && !!task.auctualStart && !!task.auctualEnd;
+
   switch (task.type) {
     case "milestone":
       barTask = convertToMilestone(
         task,
         index,
         dates,
+        auctualDates,
         columnWidth,
         rowHeight,
         taskHeight,
@@ -107,6 +114,8 @@ const convertToBarTask = (
         handleWidth,
         milestoneBackgroundColor,
         milestoneBackgroundSelectedColor,
+        milestoneSecondaryBackgroundColor,
+        isSplit,
         showTaskNameonBar
       );
       break;
@@ -127,7 +136,7 @@ const convertToBarTask = (
         projectBackgroundColor,
         projectBackgroundSelectedColor,
         actualColor,
-        shouldSplit,
+        isSplit,
         showTaskNameonBar
       );
       break;
@@ -148,7 +157,7 @@ const convertToBarTask = (
         barBackgroundColor,
         barBackgroundSelectedColor,
         actualColor,
-        shouldSplit,
+        isSplit,
         showTaskNameonBar
       );
       break;
@@ -254,6 +263,7 @@ const convertToMilestone = (
   task: Task,
   index: number,
   dates: Date[],
+  auctualDates: Date[],
   columnWidth: number,
   rowHeight: number,
   taskHeight: number,
@@ -261,30 +271,37 @@ const convertToMilestone = (
   handleWidth: number,
   milestoneBackgroundColor: string,
   milestoneBackgroundSelectedColor: string,
+  milestoneSecondaryBackgroundColor: string,
+  shouldSplit: boolean,
   showTaskNameonBar: boolean
 ): BarTask => {
-  const x = taskXCoordinate(task.start, dates, columnWidth);
+
+  const x1 = taskXCoordinate(task.start, dates, columnWidth);
+  
+  let ax1 = 0;
+  if (shouldSplit && task.auctualStart) {
+      ax1 = taskXCoordinate(task.auctualStart, auctualDates, columnWidth);
+  }
+
   const y = taskYCoordinate(index, rowHeight, taskHeight);
-
-  const x1 = x - taskHeight * 0.5;
-  const x2 = x + taskHeight * 0.5;
-
+  
   const rotatedHeight = taskHeight / 1.414;
   const styles = {
     backgroundColor: milestoneBackgroundColor,
     backgroundSelectedColor: milestoneBackgroundSelectedColor,
     progressColor: "",
     progressSelectedColor: "",
+    actualColor: milestoneSecondaryBackgroundColor, 
     ...task.styles,
   };
   return {
     ...task,
     end: task.start,
-    x1,
-    x2,
-    ax1: x1, 
-    ax2: x2, 
-    shouldSplit: false,
+    x1: x1,
+    x2: x1,
+    ax1: ax1, 
+    ax2: ax1, 
+    shouldSplit,
     showTaskNameonBar,
     y,
     y1: y,
@@ -303,7 +320,10 @@ const convertToMilestone = (
 };
 
 const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number) => {
-  const index = dates.findIndex(d => d.getTime() >= xDate.getTime()) - 1;
+  let index = dates.findIndex(d => d.getTime() >= xDate.getTime()) - 1;
+  if (index < 0) {
+    index = 0;
+  }
 
   const remainderMillis = xDate.getTime() - dates[index].getTime();
   const percentOfInterval =
