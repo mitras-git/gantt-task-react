@@ -46,6 +46,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   projectBackgroundSelectedColor = "#b8c2cc",
   milestoneBackgroundColor = "#f1c453",
   milestoneBackgroundSelectedColor = "#f29e4c",
+  milestoneSecondaryBackgroundColor = "#fac465",
   actualColor = "#fac465",
   rtl = false,
   handleWidth = 8,
@@ -146,6 +147,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         projectBackgroundSelectedColor,
         milestoneBackgroundColor,
         milestoneBackgroundSelectedColor,
+        milestoneSecondaryBackgroundColor,
         actualColor,
         showTaskNameonBar
       )

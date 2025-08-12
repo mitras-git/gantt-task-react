@@ -118,6 +118,7 @@ export interface StylingOption {
   projectBackgroundSelectedColor?: string;
   milestoneBackgroundColor?: string;
   milestoneBackgroundSelectedColor?: string;
+  milestoneSecondaryBackgroundColor?: string;
   actualColor?: string;
   arrowColor?: string;
   arrowIndent?: number;
