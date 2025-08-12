@@ -30,6 +30,7 @@ export const TaskListTableDefault: React.FC<{
   locale: string;
   tasks: Task[];
   selectedTaskId: string;
+  greenOnTaskComplete: boolean;
   setSelectedTask: (taskId: string) => void;
   onExpanderClick: (task: Task) => void;
 }> = ({
@@ -39,6 +40,7 @@ export const TaskListTableDefault: React.FC<{
   fontFamily,
   fontSize,
   // locale,
+  greenOnTaskComplete,
   onExpanderClick,
 }) => {
   // const toLocaleDateString = useMemo(
@@ -99,7 +101,7 @@ export const TaskListTableDefault: React.FC<{
                 >
                   {expanderSymbol}
                 </div>
-                <div className={ taskProgressComplete() ? styles.taskListOnComplete : "" }>{t.name}</div>
+                <div className={ greenOnTaskComplete ? (taskProgressComplete() ? styles.taskListOnComplete : "") : "" }>{t.name}</div>
               </div>
             </div>
             {/* <div

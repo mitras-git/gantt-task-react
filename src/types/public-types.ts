@@ -105,9 +105,10 @@ export interface StylingOption {
   /**
    * How many of row width can be taken by task.
    * From 0 to 100
-   */
+  */
   barFill?: number;
   showTaskNameonBar?: boolean;
+  greenOnTaskComplete?: boolean;
   barProgressColor?: string;
   barProgressSelectedColor?: string;
   barBackgroundColor?: string;

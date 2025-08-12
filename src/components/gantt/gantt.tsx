@@ -62,6 +62,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   TaskListHeader = TaskListHeaderDefault,
   TaskListTable = TaskListTableDefault,
   showTaskNameonBar = true,
+  greenOnTaskComplete = false,
   onDateChange,
   onProgressChange,
   onDoubleClick,
@@ -456,11 +457,13 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     horizontalContainerClass: styles.horizontalContainer,
     selectedTask,
     taskListRef,
+    greenOnTaskComplete,
     setSelectedTask: handleSelectedTask,
     onExpanderClick: handleExpanderClick,
     TaskListHeader,
     TaskListTable,
   };
+  
   return (
     <div>
       <div

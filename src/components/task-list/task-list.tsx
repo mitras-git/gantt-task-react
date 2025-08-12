@@ -15,6 +15,7 @@ export type TaskListProps = {
   taskListRef: React.RefObject<HTMLDivElement>;
   horizontalContainerClass?: string;
   selectedTask: BarTask | undefined;
+  greenOnTaskComplete: boolean;
   setSelectedTask: (task: string) => void;
   onExpanderClick: (task: Task) => void;
   TaskListHeader: React.FC<{
@@ -31,6 +32,7 @@ export type TaskListProps = {
     locale: string;
     tasks: Task[];
     selectedTaskId: string;
+    greenOnTaskComplete: boolean;
     setSelectedTask: (taskId: string) => void;
     onExpanderClick: (task: Task) => void;
   }>;
@@ -45,6 +47,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   scrollY,
   tasks,
   selectedTask,
+  greenOnTaskComplete,
   setSelectedTask,
   onExpanderClick,
   locale,
@@ -76,6 +79,7 @@ export const TaskList: React.FC<TaskListProps> = ({
     tasks,
     locale,
     selectedTaskId: selectedTaskId,
+    greenOnTaskComplete,
     setSelectedTask,
     onExpanderClick,
   };
