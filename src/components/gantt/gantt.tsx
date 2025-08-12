@@ -171,6 +171,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     projectBackgroundSelectedColor,
     milestoneBackgroundColor,
     milestoneBackgroundSelectedColor,
+    milestoneSecondaryBackgroundColor,
     rtl,
     scrollX,
     onExpanderClick,
