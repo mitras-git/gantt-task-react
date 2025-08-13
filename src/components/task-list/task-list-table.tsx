@@ -75,6 +75,8 @@ export const TaskListTableDefault: React.FC<{
           return false;
         };
 
+        console.log("Value of greenTaskOnComplete at task-list-table.tsx(78): ", greenOnTaskComplete)
+
         return (
           <div
             className={styles.taskListTableRow}
