@@ -24,7 +24,8 @@ export const convertToBarTasks = (
   milestoneBackgroundSelectedColor: string,
   milestoneSecondaryBackgroundColor: string,
   actualColor: string,
-  showTaskNameonBar: boolean
+  showTaskNameonBar: boolean,
+  greenOnTaskComplete: boolean
 ) => {
   let barTasks = tasks.map((t, i) => {
     return convertToBarTask(
@@ -51,7 +52,8 @@ export const convertToBarTasks = (
       milestoneSecondaryBackgroundColor,
       actualColor,
       !!t.createSplit,
-      showTaskNameonBar
+      showTaskNameonBar,
+      greenOnTaskComplete
     );
   });
 
@@ -94,7 +96,8 @@ const convertToBarTask = (
   milestoneSecondaryBackgroundColor: string,
   actualColor: string,
   shouldSplit: boolean = false,
-  showTaskNameonBar: boolean
+  showTaskNameonBar: boolean,
+  greenOnTaskComplete: boolean
 ): BarTask => {
   let barTask: BarTask;
 
@@ -116,7 +119,8 @@ const convertToBarTask = (
         milestoneBackgroundSelectedColor,
         milestoneSecondaryBackgroundColor,
         isSplit,
-        showTaskNameonBar
+        showTaskNameonBar,
+        greenOnTaskComplete
       );
       break;
     case "project":
@@ -137,7 +141,8 @@ const convertToBarTask = (
         projectBackgroundSelectedColor,
         actualColor,
         isSplit,
-        showTaskNameonBar
+        showTaskNameonBar,
+        greenOnTaskComplete
       );
       break;
     default:
@@ -158,7 +163,8 @@ const convertToBarTask = (
         barBackgroundSelectedColor,
         actualColor,
         isSplit,
-        showTaskNameonBar
+        showTaskNameonBar,
+        greenOnTaskComplete
       );
       break;
   }
@@ -182,7 +188,8 @@ const convertToBar = (
   barBackgroundSelectedColor: string,
   actualColor: string,
   shouldSplit: boolean,
-  showTaskNameonBar: boolean
+  showTaskNameonBar: boolean,
+  greenOnTaskComplete: boolean
 ): BarTask => {
 
   let x1: number;
@@ -244,6 +251,7 @@ const convertToBar = (
     ax2,
     shouldSplit,
     showTaskNameonBar,
+    greenOnTaskComplete,
     y,
     y1,
     index,
@@ -273,7 +281,8 @@ const convertToMilestone = (
   milestoneBackgroundSelectedColor: string,
   milestoneSecondaryBackgroundColor: string,
   shouldSplit: boolean,
-  showTaskNameonBar: boolean
+  showTaskNameonBar: boolean,
+  greenOnTaskComplete: boolean
 ): BarTask => {
 
   const x1 = taskXCoordinate(task.start, dates, columnWidth);
@@ -303,6 +312,7 @@ const convertToMilestone = (
     ax2: ax1, 
     shouldSplit,
     showTaskNameonBar,
+    greenOnTaskComplete,
     y,
     y1: y,
     index,

@@ -19,6 +19,7 @@ export interface BarTask extends Task {
   handleWidth: number;
   barChildren: BarTask[];
   showTaskNameonBar: boolean;
+  greenOnTaskComplete: boolean;
   styles: {
     backgroundColor: string;
     backgroundSelectedColor: string;

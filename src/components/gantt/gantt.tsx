@@ -150,7 +150,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         milestoneBackgroundSelectedColor,
         milestoneSecondaryBackgroundColor,
         actualColor,
-        showTaskNameonBar
+        showTaskNameonBar,
+        greenOnTaskComplete
       )
     );
   }, [
@@ -178,6 +179,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     onExpanderClick,
     viewStartDate,
     viewEndDate,
+    greenOnTaskComplete,
   ]);
 
   useEffect(() => {
